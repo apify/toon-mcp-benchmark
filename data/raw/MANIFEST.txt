@@ -1,0 +1,16 @@
+# Extraction manifest, generated 2026-09-10
+# Each raw file is the blob at <upstream_path> in commit <commit> of https://github.com/apify/apify-mcp-server
+# Verify: fetch https://raw.githubusercontent.com/apify/apify-mcp-server/<commit>/<upstream_path> and compare its SHA-256,
+# or run `git hash-object <local_file>` and compare with `git ls-tree <commit> <upstream_path>` in a clone.
+
+local_file                   upstream_path                                commit     git_blob                                   sha256
+toon_format_adoption.md      res/toon_format_adoption.md                  78e5bb5f   394027f7d4ffeaf25088cac7f8ae30d26c9b94ea   3ed547692e72b6843225c565e3091e447cb5de4bd5a755c9b1c49e7bf81ba3f9
+toon_ab_eval.ts              evals/workflows/toon_ab_eval.ts              9417a220   065d57b2e61a15a1a1067cea93a9eccaf17d14ce   32a839fc387a9001579eb980ff1db8f89f5f2badab2269eb5db59c96f1c3001f
+toon_encoding_measure.ts     evals/workflows/toon_encoding_measure.ts     9417a220   62d10c08d4fa5d05d7683c807812bd6c4f26c781   0dc103c2e0ff00bdf8219ce920d5d2d9ee8da238900f36cc88de041dadd87da5
+toon_ab_results.json         evals/workflows/toon_ab_results.json         9417a220   410287bbdfe888025938af56e33cd38ee1a53e6b   aa114ec2f6d2f9709b3c39149c8fc7793093d891f40092cbde9cc5495a99a4a9
+toon_ab_analysis.json        evals/workflows/toon_ab_analysis.json        9417a220   9a4b740ced40f6b122f9b929048a87d14dffe1bc   d00008f2727a4a28059dbe6de01f099a0b51fa85c253025feebab640b75a22f7
+toon_ab_run.log              evals/workflows/toon_ab_run.log              9417a220   150f9c470708bdf0b08af1ad96c55caf25071bcb   4f161cd881cfef6394a5a107602e2b34c682c64ba0914442dbe55b14daa93fa4
+toon_encoding_results.json   evals/workflows/toon_encoding_results.json   9417a220   ecc964f1d83f952f99a154362ec8ad2bfec736fc   136cc5ae38c49dba4dc6ac411b376ababcc3eb70ec81f62e54be055cd61c19d0
+test_cases.json              evals/workflows/test_cases.json              9417a220   a6af6741fdf7a9f293f771f0e4bce6e2532d73f8   7fa718bd16330939cbd50739893899e2b9ce876e2d2867874ba1ab00e3f9fece
+evals_README.md              evals/workflows/README.md                    9417a220   a9e25d98a0a91079b7c12a33c69b3dadfdd0b51c   c4d65e6c1669393a683fcff851cd09bf7f9045c7c68400f58bf2417ca9f510df
+package.json                 package.json                                 9417a220   135445bc06b5518d59f7d49bc452d3a4ee56ecfe   d452ae8d862024b664a482c2ab8d94159158b2cf07b9e1b6f015a0bf3bf3e305

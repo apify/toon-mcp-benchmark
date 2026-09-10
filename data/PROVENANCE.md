@@ -2,11 +2,12 @@
 
 All raw files in `data/raw/` are byte-identical copies of blobs in the public repository
 [apify/apify-mcp-server](https://github.com/apify/apify-mcp-server), extracted with `git show <ref>:<path>`
-on 2026-09-10. None of them ever reached the `master` branch.
+on 2026-09-10. `raw/MANIFEST.txt` lists the upstream commit, path, git blob id and SHA-256 of every file so the copy can be verified independently. None of them ever reached the `master` branch.
 
 | File | Source ref | Path in source repo | Commit that added it |
 |---|---|---|---|
 | `toon_format_adoption.md` | `feat/toon-format-benchmark` @ `78e5bb5f` | `res/toon_format_adoption.md` | `78e5bb5f` (2026-05-13, PR #836, closed unmerged; refiled as issue #913) |
+| `package.json` | `feat/evaluate-toon-format` @ `9417a220` | `package.json` | upstream manifest at the same commit, evidence for `gpt-tokenizer` and `@toon-format/toon` versions |
 | `toon_ab_eval.ts` | `feat/evaluate-toon-format` @ `9417a220` | `evals/workflows/toon_ab_eval.ts` | `e3c28bec` (2026-06-25) |
 | `toon_encoding_measure.ts` | same | `evals/workflows/toon_encoding_measure.ts` | `e3c28bec` (2026-06-25) |
 | `toon_ab_run.log` | same | `evals/workflows/toon_ab_run.log` | `9417a220` (2026-06-26) |
@@ -20,31 +21,31 @@ on 2026-09-10. None of them ever reached the `master` branch.
 
 | Date | Event |
 |---|---|
-| 2026-05-13 | Spec proposes an adaptive JSON-or-TOON picker based on 18 fixtures (PR #836) |
-| 2026-06-09 | PRs #950 + #952 ship always-TOON encoding for five list tools (`@toon-format/toon@2.3.0`) |
+| 2026-05-13 | Spec proposes an adaptive JSON-or-TOON picker based on 18 fixtures ([PR #836](https://github.com/apify/apify-mcp-server/pull/836), closed unmerged; refiled as [issue #913](https://github.com/apify/apify-mcp-server/issues/913)) |
+| 2026-06-09 | [PR #950](https://github.com/apify/apify-mcp-server/pull/950) + [#952](https://github.com/apify/apify-mcp-server/pull/952) ship always-TOON encoding for five list tools (`@toon-format/toon@2.3.0`): get-actor-run-list, get-dataset-list, get-key-value-store-list, get-key-value-store-keys, get-dataset-items |
 | 2026-06-16 to 06-26 | Evaluation work on `feat/evaluate-toon-format`: byte and token metrics, A/B switch, two A/B executions, encoder-only measurement |
-| 2026-06-25 | Gate issue #943 ("does TOON degrade MCP task performance?") closed |
-| 2026-06-29 | PR #1031 lands byte/token cost metrics on master; TOON scaffolding and these result files excluded |
-| 2026-07-09 | PR #1060 removes TOON (16 files, +23 / −308) |
+| 2026-06-25 | Gate [issue #943](https://github.com/apify/apify-mcp-server/issues/943) ("does TOON degrade MCP task performance?") closed |
+| 2026-06-29 | [PR #1031](https://github.com/apify/apify-mcp-server/pull/1031) lands byte/token cost metrics on master; TOON scaffolding and these result files excluded |
+| 2026-07-09 | [PR #1060](https://github.com/apify/apify-mcp-server/pull/1060) removes TOON (16 files, +23 / −308; `src/utils/encode_text.ts` reduced to a JSON fence helper, `@toon-format/toon` dependency and the encoder tests deleted) |
 
 ## What each measurement is
 
 ### Spec fixtures (`toon_format_adoption.md`)
-18 payloads: 15 captured from the live Apify API, 3 synthetic (the test account had no storages with a user-declared schema).
+18 payloads: 16 captured from the live Apify API and 2 synthetic (one dataset-list and one key-value-store-list fixture with heterogeneous `schema` rows, generated because the test account had no storages with a user-declared schema).
 Metric: UTF-8 bytes. Compared `json` (`JSON.stringify`) against `toon-flatten` (dot-flatten nested keys, then TOON-encode).
 The fixture files themselves were never committed.
 
 ### Encoder-only measurement (`toon_encoding_results.json`)
 Deterministic: no agent, no live calls. Encodes fixture payloads with the *shipped* `encodeToon` (always TOON, dot-flatten,
 markdown fence) and with `JSON.stringify`, then counts bytes and tokens.
-Tokenizer: `gpt-tokenizer` 3.4.x, encoding `o200k_base` (GPT-4o). This is a proxy; the agent model in the A/B runs was Claude Haiku 4.5, whose tokenizer differs.
+Tokenizer: `gpt-tokenizer` (devDependency `^3.4.0` in `data/raw/package.json`, the upstream manifest at the same commit), encoding `o200k_base` (GPT-4o). This is a proxy; the agent model in the A/B runs was Claude Haiku 4.5, whose tokenizer differs.
 **Not reproducible:** `toon_encoding_measure.ts` reads its fixtures from an absolute scratchpad path on the author's machine
 (`maps_items.json`, `rag_items.json`, `kvs_keys.json`, `run_list.json`), and those files were never committed. The results JSON is the only record.
 
 ### Execution A (`toon_ab_run.log`, `toon_ab_analysis.json`)
 End-to-end A/B with a live agent: 5 runs per format × 20 test cases across categories search/call/mcp/fetch/storage, concurrency 8.
 Agent `anthropic/claude-haiku-4.5`, LLM judge `deepseek/deepseek-v4-flash`, via OpenRouter.
-Bytes = UTF-8 bytes of tool results fed to the agent. Tokens = agent prompt + completion tokens as billed (judge excluded).
+Bytes = UTF-8 bytes of tool results fed to the agent. Tokens = the agent conversation's prompt + completion token counts as reported in the OpenRouter usage fields (judge excluded).
 Six of the 20 tests never call a TOON-encoded tool, so their bytes are identical between arms and dilute the suite-wide average.
 `toon_ab_analysis.json` has no generating script in the repo; it was produced ad hoc from the same run. Its `toonSd`/`jsonSd`
 are population standard deviations (4.12 / 3.2); `parse.py` prints sample standard deviations (4.6 / 3.58).
@@ -58,7 +59,8 @@ agents to request only the fields they need (`2e639fba`). Ran after Execution A 
 - Live Actor output varies between calls, so unseeded tests are not strictly paired between arms.
 - Pass/fail comes from an LLM judge; per-run pass counts in Execution A swing between 8 and 18 out of 20.
 - The two A/B executions differ in sign on every headline metric. Quote them separately.
-- Encoder-only tokens are GPT-4o tokenizer counts; A/B tokens are Claude Haiku 4.5 billing counts. Do not mix them.
+- Encoder-only tokens are GPT-4o tokenizer counts on a fixed payload; A/B tokens are the Claude Haiku 4.5 conversation's usage counts on whatever the agent chose to fetch. Do not mix them. They can disagree: the encoder-only Google Maps payload costs +11.1% tokens as TOON, while in Execution A the live `call-google-maps-restaurants` task averaged 8.5% fewer agent tokens under TOON (and `instagram-posts` +13.9% more, passing 1 of 5 runs under TOON against 5 of 5 under JSON).
+- Two raw files contain the evaluation author's local filesystem paths (`toon_encoding_measure.ts` FIXTURES constant, `toon_ab_run.log` header). They are kept verbatim so the files stay byte-identical to the public upstream blobs (see `raw/MANIFEST.txt`).
 - Identifiers in the data are public Actor names and public social handles used as scrape targets. No credentials, no personal data.
 
 ## License

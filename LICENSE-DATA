@@ -1,0 +1,8 @@
+The data files under data/ (data/raw/ and the derived CSV files) are licensed
+under the Creative Commons Attribution 4.0 International License (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+Attribution: "TOON evaluation data, Apify (apify/apify-mcp-server contributors), 2026,
+https://github.com/apify/toon-mcp-benchmark".
+
+The code (data/parse.py, charts/) is licensed separately under the MIT License, see LICENSE.
