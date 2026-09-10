@@ -1,0 +1,8 @@
+payload,rows,toon_bytes,json_bytes,toon_tokens,json_tokens,bytes_delta_pct,tokens_delta_pct
+get-dataset-items · compact tabular (Google Maps),25,110602,99401,42039,37462,11.27,12.22
+get-dataset-items · compact tabular (Google Maps),100,459973,414947,177685,159962,10.85,11.08
+get-dataset-items · compact tabular (Google Maps),100 (real),459973,414947,177685,159962,10.85,11.08
+get-dataset-items · text-heavy (rag-web-browser),25,614919,611691,150357,149498,0.53,0.57
+get-dataset-items · text-heavy (rag-web-browser),15 (real),318730,316832,78684,78181,0.6,0.64
+"get-key-value-store-keys · {key,size} rows",4,761,877,304,323,-13.23,-5.88
+get-actor-run-list · run rows,10,4987,4826,2298,2099,3.34,9.48

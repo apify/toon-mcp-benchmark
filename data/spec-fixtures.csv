@@ -1,0 +1,7 @@
+tool,bytes_delta_pct_vs_json,winning_strategy
+get-actor-run-list,-44.0,toon-flatten
+get-dataset-list,-31.6,toon-flatten (mixed-schema: json)
+get-key-value-store-list,-31.3,toon-flatten (mixed-schema: json)
+get-key-value-store-keys,-19.0,toon-flatten
+dataset-items,-1.2,depends on the Actor
+combined (18 fixtures),-6.2,"toon-flatten 10/18, json 8/18"

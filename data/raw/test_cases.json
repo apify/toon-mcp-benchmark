@@ -1,0 +1,248 @@
+{
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "search-google-maps",
+      "category": "search",
+      "query": "Is there any Google Maps scraping tool on Apify?",
+      "reference": "The agent must search for actors related to Google Maps and return at least 3 results with their names and descriptions."
+    },
+    {
+      "id": "search-add-call-python-actor",
+      "tools": ["add-actor", "actors"],
+      "category": "call",
+      "query": "Find example Python Actor and add it to the MCP server and then call it with random sample input and present the results",
+      "reference": "The agent must find apify/python-example Actor or any similar and add it to the MCP server using the add-actor tool. Then, it must call the added Actor with sample input and return the output."
+    },
+    {
+      "id": "instagram-posts",
+      "category": "call",
+      "query": "Show me 1 latest post from the natgeo instagram profile",
+      "reference": "The agent must search Instagram for recent post from the natgeo profile and present it to the user."
+    },
+    {
+      "id": "call-actor-mcp-weather",
+      "category": "mcp",
+      "query": "Find a weather mcp Actor and use it through the call-actor tool to show me the current weather in Prague",
+      "reference": "The agent must find a weather-related Actor on the MCP server and use the call-actor tool to get and return the current weather in Prague and present the results."
+    },
+    {
+      "id": "search-instagram-scrapers",
+      "category": "search",
+      "query": "What is the best instagram scraper on Apify?",
+      "reference": "The agent must use search-actors to find Instagram scrapers, return at least 3 relevant results and present the best one."
+    },
+    {
+      "id": "search-tiktok-scrapers",
+      "category": "search",
+      "query": "What is the best tiktok scraper on Apify?",
+      "reference": "The agent must use search-actors to find tiktok scrapers, return at least 3 relevant results and present the best one."
+    },
+    {
+      "id": "search-generic-scrapers",
+      "category": "search",
+      "query": "What is the best scraper tool to extract website content?",
+      "reference": "The agent must use search-actors to find generic website content scrapers, return at least 3 relevant results and present the best one."
+    },
+    {
+      "id": "call-google-maps-restaurants",
+      "category": "call",
+      "query": "Find the top 3 restaurants in Prague using the Google Maps Scraper, I want to know their names, ratings and addresses",
+      "reference": "The agent must find Google Maps scraper, call it with 'restaurants Prague' query, and return a filtered list of restaurant names with ratings and addresses."
+    },
+    {
+      "id": "call-tiktok-scraper",
+      "category": "call",
+      "query": "Show me 1 latest post from natgeo tik tok using Apify",
+      "reference": "The agent must find tik tok scraper, call it for natgeo profile, return the latest post and present it to the user."
+    },
+    {
+      "id": "fetch-details-mcp-tools-list",
+      "category": "mcp",
+      "query": "Show me what tools are available in the apify/example-mcp-server MCP server",
+      "reference": "The agent must use fetch-actor-details with output={ mcpTools: true } to list available tools. The response should present the list of tools with their names and descriptions."
+    },
+    {
+      "id": "fetch-details-mcp-tools-then-call",
+      "category": "mcp",
+      "query": "List tools from apify/actors-mcp-server and then call the fetch-apify-docs tool from the Actor MCP server apify/actors-mcp-server to get docs from https://docs.apify.com",
+      "reference": "The agent must first use fetch-actor-details with output={ mcpTools: true } to discover tools, then use call-actor with actor='apify/actors-mcp-server:fetch-apify-docs' and proper input to call the specific tool."
+    },
+    {
+      "id": "fetch-details-non-mcp-actor-graceful",
+      "category": "fetch",
+      "query": "Show me MCP tools for apify/instagram-scraper",
+      "reference": "The agent must use fetch-actor-details with output={ mcpTools: true } for a regular (non-MCP) Actor. The response should gracefully indicate that this Actor is not an MCP server, not throw an error."
+    },
+    {
+      "id": "workflow-search-fetch-schema-call",
+      "category": "call",
+      "query": "Find a TikTok scraper, check what input it needs, and run it to get 5 videos from user @example",
+      "reference": "The agent must: 1) use search-actors to find TikTok scraper, 2) use fetch-actor-details with output={ inputSchema: true } to get required input, 3) use call-actor with proper input. This tests the complete new workflow pattern."
+    },
+    {
+      "id": "workflow-mcp-discover-and-execute",
+      "category": "mcp",
+      "query": "Use the apify/example-mcp-server to execute one of its tools",
+      "reference": "The agent must: 1) use fetch-actor-details to list tools, 2) use call-actor to execute. Tests full MCP server discovery and execution workflow."
+    },
+    {
+      "id": "storage-dataset-items-seeded",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor on the URL https://docs.apify.com/ with maxResults set to 1, waiting up to 45 seconds for it to finish. Then tell me the title and the URL of the page that was scraped.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser, then call get-dataset-items with the datasetId from that run, and finally report a page title and a URL. PASS only if get-dataset-items was called with a datasetId argument and the final answer contains a title and a URL.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 12
+    },
+    {
+      "id": "storage-dataset-schema-seeded",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor on the URL https://docs.apify.com/ with maxResults set to 1, waiting up to 45 seconds for it to finish. Then generate a JSON schema describing the structure of that run's dataset items.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser, then call get-dataset-schema with the datasetId from that run. PASS only if get-dataset-schema was called with a datasetId argument.",
+      "tools": ["actors", "get-dataset-schema"],
+      "maxTurns": 12
+    },
+    {
+      "id": "storage-dataset-metadata-seeded",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor on the URL https://docs.apify.com/ waiting up to 45 seconds for it to finish. When the run finishes call get-dataset to tell me how many items the dataset contains.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser, then call get-dataset with the datasetId from that run. PASS only if get-dataset was called with a datasetId argument and the final answer states an item count.",
+      "tools": ["actors", "get-dataset"],
+      "maxTurns": 12
+    },
+    {
+      "id": "storage-kv-keys-seeded",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor on the URL https://docs.apify.com/ with maxResults set to 1, waiting up to 45 seconds for it to finish. Then use the key-value store keys tool to list the keys stored in that run's key-value store (limit 10) and tell me how many keys there are and what they are named.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser, then call get-key-value-store-keys with the keyValueStoreId from that run. PASS only if get-key-value-store-keys was actually called with a keyValueStoreId argument and the final answer lists one or more key names.",
+      "tools": ["actors", "get-key-value-store-keys"],
+      "maxTurns": 12
+    },
+    {
+      "id": "storage-kv-record-seeded",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor on the URL https://docs.apify.com/ with maxResults set to 1, waiting up to 45 seconds for it to finish. Then read one record from that run's key-value store and tell me what kind of content that record holds.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser, then call get-key-value-store-record with the keyValueStoreId from that run and a recordKey. PASS only if get-key-value-store-record was called with both a keyValueStoreId and a recordKey argument, and the final answer describes the record's content.",
+      "tools": ["actors", "get-key-value-store-record"],
+      "maxTurns": 12
+    },
+    {
+      "id": "storage-actor-run-list-seeded",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor on the URL https://docs.apify.com/ with maxResults set to 1, waiting up to 45 seconds for it to finish. Then look at my recent Actor runs (newest first) and confirm that the run you just started appears, reporting its status and run ID.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser, then call get-actor-run-list. PASS only if get-actor-run-list was actually called and the final answer reports a run ID and a status matching the run the agent just started.",
+      "tools": ["actors", "get-actor-run-list"],
+      "maxTurns": 12
+    },
+    {
+      "id": "storage-dataset-items-maps-bulk",
+      "category": "storage",
+      "query": "Use the Google Maps Scraper to find the best 20 restaurants in Prague. When the run finishes, retrieve all of them in a single call. Then tell me how many restaurants were returned and list the names and ratings of the first five.",
+      "reference": "The agent must find the Google Maps scraper and call-actor it for restaurants in Prague, then call get-dataset-items with the datasetId from that run and a limit high enough to return every row in one call. PASS only if get-dataset-items was called with a datasetId argument and the final answer states a restaurant count and lists at least five restaurant names with ratings.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 20
+    },
+    {
+      "id": "storage-dataset-items-hotels-bulk",
+      "category": "storage",
+      "query": "Use the Google Maps Scraper to find at least 20 hotels in Vienna. When the run finishes, retrieve all the results and tell me how many hotels were returned and the names and addresses of the first five.",
+      "reference": "The agent must find the Google Maps scraper and call-actor it for hotels in Vienna, then call get-dataset-items with the datasetId from that run and a limit high enough to return every row in one call. PASS only if get-dataset-items was called with a datasetId argument and the final answer states a hotel count and lists at least five hotel names with addresses.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 20
+    },
+    {
+      "id": "storage-dataset-items-rag-bulk",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor to search for the best open source web scraping libraries. Set maxResults to 8, waiting up to 45 seconds for it to finish. Then give me the title and URL of each result.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser with maxResults 8, then call get-dataset-items with the datasetId from that run and a limit high enough to return every row in one call. PASS only if get-dataset-items was called with a datasetId argument and the final answer lists a title and a URL for at least five results.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 16
+    },
+    {
+      "id": "storage-run-list-recent",
+      "category": "storage",
+      "query": "List my 10 most recent Actor runs, newest first. For each run report its run ID, the Actor it ran, and its status.",
+      "reference": "The agent must call get-actor-run-list (newest first, limit 10). PASS only if get-actor-run-list was actually called and the final answer reports several runs, each with a run ID and a status.",
+      "tools": ["get-actor-run-list"],
+      "maxTurns": 6
+    },
+    {
+      "id": "storage-kv-keys-bulk",
+      "category": "storage",
+      "query": "Run the apify/rag-web-browser Actor with the search query 'web scraping' and maxResults set to 3, waiting up to 45 seconds for it to finish. Then list the keys in that run's key-value store (limit 10) and tell me how many keys there are and what they are named.",
+      "reference": "The agent must call call-actor for apify/rag-web-browser, then call get-key-value-store-keys with the keyValueStoreId from that run. PASS only if get-key-value-store-keys was actually called with a keyValueStoreId argument and the final answer states a key count and lists one or more key names.",
+      "tools": ["actors", "get-key-value-store-keys"],
+      "maxTurns": 14
+    },
+    {
+      "id": "call-google-search-results",
+      "category": "call",
+      "query": "Use Apify to run a Google search for 'best open source web scraping libraries' and give me the title and URL of the top 5 organic results.",
+      "reference": "The agent must find the Google Search Results scraper (e.g. apify/google-search-scraper), call it with the query 'best open source web scraping libraries', and present at least 5 organic results, each with a title and a URL."
+    },
+    {
+      "id": "storage-dataset-items-google-search",
+      "category": "storage",
+      "query": "Run a Google search via Apify for 'apify web scraping' and request the top 10 organic results. When the run finishes, retrieve only the title and URL of each result and list them.",
+      "reference": "The agent must find the Google Search Results scraper and call-actor it for the query 'apify web scraping', then call get-dataset-items with the datasetId from that run. PASS only if get-dataset-items was called with a datasetId argument and the final answer lists at least five results, each with a title and a URL.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 16
+    },
+    {
+      "id": "call-instagram-recent-posts",
+      "category": "call",
+      "query": "Using Apify, get the 3 most recent posts from the nasa Instagram profile and tell me each post's caption and like count.",
+      "reference": "The agent must find an Instagram scraper (e.g. apify/instagram-scraper), call it for the nasa profile, and present at least 3 recent posts, each with a caption and a like count."
+    },
+    {
+      "id": "storage-dataset-items-instagram",
+      "category": "storage",
+      "query": "Scrape the 10 latest posts from the natgeo Instagram profile using Apify. When the run finishes, retrieve only the caption and like count of each post and list them.",
+      "reference": "The agent must find an Instagram scraper and call-actor it for the natgeo profile, then call get-dataset-items with the datasetId from that run. PASS only if get-dataset-items was called with a datasetId argument and the final answer lists several posts, each with a caption and a like count.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 18
+    },
+    {
+      "id": "call-tiktok-recent-videos",
+      "category": "call",
+      "query": "Use Apify to get the 5 latest TikTok videos from the @nasa profile and report each video's view count.",
+      "reference": "The agent must find a TikTok scraper, call it for the @nasa profile, and present at least 5 recent videos, each with a view count."
+    },
+    {
+      "id": "storage-dataset-items-tiktok",
+      "category": "storage",
+      "query": "Scrape the 10 latest TikTok videos from the @natgeo profile using Apify. When the run finishes, retrieve only each video's URL and view count and list them.",
+      "reference": "The agent must find a TikTok scraper and call-actor it for the @natgeo profile, then call get-dataset-items with the datasetId from that run. PASS only if get-dataset-items was called with a datasetId argument and the final answer lists several videos, each with a URL and a view count.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 18
+    },
+    {
+      "id": "call-youtube-channel-videos",
+      "category": "call",
+      "query": "Find a YouTube scraper on Apify and get the 5 latest videos from the NASA YouTube channel, with each video's title and view count.",
+      "reference": "The agent must find a YouTube scraper (e.g. streamers/youtube-scraper), call it for the NASA channel, and present at least 5 videos, each with a title and a view count."
+    },
+    {
+      "id": "storage-dataset-items-youtube",
+      "category": "storage",
+      "query": "Use Apify to scrape 10 videos from the MrBeast YouTube channel. When the run finishes, retrieve only the title and view count of each video and list them.",
+      "reference": "The agent must find a YouTube scraper and call-actor it for the MrBeast channel, then call get-dataset-items with the datasetId from that run. PASS only if get-dataset-items was called with a datasetId argument and the final answer lists several videos, each with a title and a view count.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 18
+    },
+    {
+      "id": "call-reddit-subreddit-posts",
+      "category": "call",
+      "query": "Use Apify to get the top 5 posts from the r/programming subreddit and tell me each post's title and number of upvotes.",
+      "reference": "The agent must find a Reddit scraper, call it for the r/programming subreddit, and present at least 5 posts, each with a title and an upvote count."
+    },
+    {
+      "id": "storage-dataset-items-reddit",
+      "category": "storage",
+      "query": "Scrape 10 posts from the r/technology subreddit using Apify. When the run finishes, retrieve only the title and upvote count of each post and list them.",
+      "reference": "The agent must find a Reddit scraper and call-actor it for the r/technology subreddit, then call get-dataset-items with the datasetId from that run. PASS only if get-dataset-items was called with a datasetId argument and the final answer lists several posts, each with a title and an upvote count.",
+      "tools": ["actors", "get-dataset-items"],
+      "maxTurns": 18
+    }
+  ]
+}
