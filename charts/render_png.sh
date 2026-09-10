@@ -7,7 +7,8 @@ cd "$(dirname "$0")"
 for svg in fig*.svg; do
   read -r w h < <(python3 -c "import re;s=open('$svg').read();print(re.search(r'width=\"(\d+)\"',s).group(1),re.search(r'height=\"(\d+)\"',s).group(1))")
   printf '<!doctype html><html><body style="margin:0;background:#fff"><img id="fig" src="%s" width="%s" height="%s" style="width:calc(%spx * 2);height:calc(%spx * 2)"></body></html>' "$svg" "$w" "$h" "$w" "$h" > "_render_${svg%.svg}.html"
-  agent-browser open "file://$PWD/_render_${svg%.svg}.html" >/dev/null
+  agent-browser close >/dev/null 2>&1 || true   # viewport flags apply at launch
+  agent-browser open "file://$PWD/_render_${svg%.svg}.html" --viewport-width $((w * 2 + 40)) --viewport-height $((h * 2 + 40)) >/dev/null
   agent-browser wait 500 >/dev/null 2>&1 || true
   agent-browser screenshot "#fig" "$PWD/${svg%.svg}.png" >/dev/null
   rm -f "_render_${svg%.svg}.html"
