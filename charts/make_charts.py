@@ -60,8 +60,8 @@ def fig1():
     plot_w = W - left - right; rowh = 48; barh = 22
     xmin, xmax = -50, 5
     def X(v): return left + (v - xmin) / (xmax - xmin) * plot_w
-    b = header("What the proposal measured: TOON versus JSON, bytes, 18 fixtures",
-               "Payload size change per MCP tool, negative means TOON is smaller. Spec of 2026-05-13; adaptive picker on captured API payloads.")
+    b = header("What the proposal measured: adaptive picker versus JSON, bytes, 18 fixtures",
+               "Byte change per MCP tool when the smaller of JSON and dot-flattened TOON is chosen per payload. Negative means smaller. Proposal of May 13, 2026.")
     for tick in (-50, -40, -30, -20, -10, 0):
         b += f'<line x1="{X(tick):.1f}" y1="{top - 8}" x2="{X(tick):.1f}" y2="{top + rowh * len(rows)}" stroke="{GRID if tick else INK2}" stroke-width="1"/>'
         b += text(X(tick), top + rowh * len(rows) + 18, f"{tick:+d}%" if tick else "0", 11, MUTED, "middle")
@@ -73,8 +73,8 @@ def fig1():
         b += text(X(v) - 8, y + barh / 2 + 4, f"{v:+.1f}%", 12, INK, "end", 600)
     # callout on dataset-items
     yi = top + 4 * rowh + rowh / 2
-    b += text(X(0) + 12, yi - 4, "carries most production traffic", 12, INK2, weight=600)
-    b += text(X(0) + 12, yi + 12, "and saved about one percent", 12, INK2)
+    b += text(X(0) + 12, yi - 4, "99.8% of the calls to these five tools", 12, INK2, weight=600)
+    b += text(X(0) + 12, yi + 12, "(June 9 to July 9, 2026), and it saved 1.2%", 12, INK2)
     b += text(40, top + rowh * len(rows) + 48,
               f"Combined across all 18 fixtures: {float(combined['bytes_delta_pct_vs_json']):+.1f}%. The picker chose TOON for 10 fixtures and JSON for 8.", 12, INK2)
     b += footer(h, "Source: res/toon_format_adoption.md in apify/apify-mcp-server (PR #836). Data and code: github.com/apify/toon-mcp-benchmark")

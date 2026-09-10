@@ -55,6 +55,18 @@ Same harness, 3 runs per format × 16 storage-category tests, concurrency 2, aft
 agents to request only the fields they need (`2e639fba`). Ran after Execution A (it includes test cases added on 2026-06-26).
 `rawRuns` carries per-test prompt/completion token splits, turns and duration.
 
+### Tool-call share during the TOON window (`tool-call-share-toon-window.json`)
+Aggregate counts of the `MCP Tool Call` analytics event by `tool_name` for 2026-06-09 to 2026-07-09 (Apify production analytics, Mixpanel project 2860297), queried 2026-09-10.
+Total tool calls in the window: 5,702,429. `get-dataset-items`: 1,568,921 (27.5%). The other four TOON-encoded tools combined: 3,770 (0.07%).
+These are call counts, not bytes, and they are the only production-traffic figures in this repository. Only the five affected tools and the total are published.
+
+### Round-two intervention (`2e639fba-tool-description.diff`)
+`git show` of upstream commit `2e639fba` (2026-06-25, "feat: added aggressive filtering to tool description"), the change to the `get-dataset-items` tool description
+that pushes agents to pass `fields`, `limit`, `clean` and `omit`. It is the intervention between Execution A and Execution B. Not an upstream blob, so it has no MANIFEST row; verify with `git show 2e639fba -- src/tools/common/get_dataset_items.ts` in a clone.
+
+### Which round-one tasks never touched a TOON tool
+Derivable from `execution-a.csv`: for six test ids the per-run `result_bytes` are identical between the two arms in every run (`search-google-maps`, `search-tiktok-scrapers`, `search-generic-scrapers`, `fetch-details-mcp-tools-list`, `fetch-details-mcp-tools-then-call`, `fetch-details-non-mcp-actor-graceful`). Those tasks call no TOON-encoded tool.
+
 ## Caveats that travel with the data
 - Live Actor output varies between calls, so unseeded tests are not strictly paired between arms.
 - Pass/fail comes from an LLM judge; per-run pass counts in Execution A swing between 8 and 18 out of 20.
