@@ -11,7 +11,8 @@ for svg in fig*.svg; do
   html="_render_${svg%.svg}.html"
   printf '<!doctype html><html><body style="margin:0;background:#fff"><img id="fig" src="%s" style="display:block;width:%spx;height:%spx"></body></html>' "$svg" "$w" "$h" > "$html"
   agent-browser open "file://$PWD/$html" >/dev/null
-  agent-browser set viewport "$w" "$h" 2 >/dev/null
+  agent-browser set viewport "$w" "$h" 2 >/dev/null   # resets the page, so open again
+  agent-browser open "file://$PWD/$html" >/dev/null
   agent-browser wait "#fig" >/dev/null 2>&1 || agent-browser wait 1500 >/dev/null 2>&1 || true
   agent-browser screenshot "#fig" "$PWD/${svg%.svg}.png" >/dev/null
   rm -f "$html"
