@@ -37,7 +37,7 @@ def rbar_h(x0, x1, y, t, fill):
             f'a{r},{r} 0 0 0 {r},{r} H{x0:.1f} Z" fill="{fill}"/>')
 def dot(x, y, fill, r=5):
     return f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r + 2}" fill="{SURF}"/><circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{fill}"/>'
-def jitter(values, step=7):
+def jitter(values, step=13):
     """Vertical offsets so identical x-values do not stack into one dot."""
     from collections import Counter, defaultdict
     cnt, seen, out = Counter(values), defaultdict(int), []
@@ -95,7 +95,7 @@ def fig2():
     def X(n): return left + ns.index(n) / (len(ns) - 1) * plot_w
     def Y(v): return top + (ymax - v) / (ymax - ymin) * plot_h
     b = header("What the shipped encoder did: tokens, TOON versus JSON, by rows returned",
-               "Token count change when the same dataset items are encoded as TOON instead of JSON. Positive means TOON costs more; 0 means the same as JSON.")
+               "Token count change when the same dataset items are encoded as TOON instead of JSON. Positive means TOON costs more.")
     b += text(40, 80, "Google Maps places are nested objects with about 60 fields each; web pages are long text from rag-web-browser. Tokenizer: gpt-tokenizer, o200k_base.", 12, MUTED)
     for tick in (-5, 0, 5, 10, 15, 20):
         b += f'<line x1="{left}" y1="{Y(tick):.1f}" x2="{left + plot_w}" y2="{Y(tick):.1f}" stroke="{GRID if tick else INK2}" stroke-width="1"/>'
@@ -112,7 +112,7 @@ def fig2():
         b += text(X(n) + 14, Y(v) + 4, f"{v:+.1f}%  {names[key]}", 12, INK, weight=600)
         b += text(X(n) + 14, Y(v) + 20, f"{tt:,} vs {tj:,} tokens at {n} rows", 11, MUTED)
     b += legend(left, top - 14, [("Google Maps places", MAPS), ("Web pages as text", TEXTP)])
-    b += footer(h, "Source: evals/workflows/toon_encoding_results.json, branch feat/evaluate-toon-format. Same payload, gpt-tokenizer o200k_base. Data: github.com/apify/toon-mcp-benchmark")
+    b += footer(h, "Source: toon_encoding_results.json, branch feat/evaluate-toon-format of apify/apify-mcp-server. Data: github.com/apify/toon-mcp-benchmark")
     (OUT / "fig2-encoder-tokens.svg").write_text(svg(h, b))
 
 # ---------------- Fig 3: the A/B noise ----------------
