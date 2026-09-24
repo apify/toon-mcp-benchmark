@@ -1,0 +1,3 @@
+{ jsonTok: 160752, toonTok: 179548, deltaTok: 18796, deltaPct: '11.7' }
+{ lines: 11885, fieldLines: 9482, quotedValues: 921 }
+{ tokWithoutIndentation: 168179, indentationTokens: 11369 }

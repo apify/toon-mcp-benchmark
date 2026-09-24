@@ -1,0 +1,118 @@
+{
+  "toonVersion": "4.1.1",
+  "tokenizer": "o200k_base (gpt-4o)",
+  "rows": [
+    {
+      "label": "maps n=1",
+      "flatFenceBytesPct": 17.94,
+      "flatFenceTokPct": 21.51,
+      "plainFenceBytesPct": 15.36,
+      "plainFenceTokPct": 18.18,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "maps n=5",
+      "flatFenceBytesPct": 14.4,
+      "flatFenceTokPct": 15.01,
+      "plainFenceBytesPct": 12.29,
+      "plainFenceTokPct": 12.74,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "maps n=10",
+      "flatFenceBytesPct": 12.54,
+      "flatFenceTokPct": 12.74,
+      "plainFenceBytesPct": 10.47,
+      "plainFenceTokPct": 10.59,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "maps n=25",
+      "flatFenceBytesPct": 12.24,
+      "flatFenceTokPct": 11.08,
+      "plainFenceBytesPct": 10.22,
+      "plainFenceTokPct": 9.18,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "maps n=50",
+      "flatFenceBytesPct": 12.73,
+      "flatFenceTokPct": 12.64,
+      "plainFenceBytesPct": 10.51,
+      "plainFenceTokPct": 10.45,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "maps n=100",
+      "flatFenceBytesPct": 11.92,
+      "flatFenceTokPct": 11.69,
+      "plainFenceBytesPct": 9.79,
+      "plainFenceTokPct": 9.72,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "rag n=1",
+      "flatFenceBytesPct": 5.89,
+      "flatFenceTokPct": 3.45,
+      "plainFenceBytesPct": 6.25,
+      "plainFenceTokPct": 2.75,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "rag n=5",
+      "flatFenceBytesPct": 1.94,
+      "flatFenceTokPct": 1.24,
+      "plainFenceBytesPct": 1.81,
+      "plainFenceTokPct": 0.74,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "rag n=10",
+      "flatFenceBytesPct": 2.08,
+      "flatFenceTokPct": 1.49,
+      "plainFenceBytesPct": 1.63,
+      "plainFenceTokPct": 0.84,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "rag n=15",
+      "flatFenceBytesPct": 1.89,
+      "flatFenceTokPct": 1.4,
+      "plainFenceBytesPct": 1.44,
+      "plainFenceTokPct": 0.79,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "run-list n=10",
+      "flatFenceBytesPct": -44.04,
+      "flatFenceTokPct": -22.99,
+      "plainFenceBytesPct": -44.02,
+      "plainFenceTokPct": -22.94,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "kv-keys",
+      "flatFenceBytesPct": -15.41,
+      "flatFenceTokPct": -7.63,
+      "plainFenceBytesPct": -15.41,
+      "plainFenceTokPct": -7.63,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "dataset-list n=10",
+      "flatFenceBytesPct": -46.15,
+      "flatFenceTokPct": -29,
+      "plainFenceBytesPct": -46.56,
+      "plainFenceTokPct": -29.18,
+      "jsonArmMatchesReconstruction": true
+    },
+    {
+      "label": "kvs-list n=10",
+      "flatFenceBytesPct": 12.73,
+      "flatFenceTokPct": 15.91,
+      "plainFenceBytesPct": 10.67,
+      "plainFenceTokPct": 14.76,
+      "jsonArmMatchesReconstruction": true
+    }
+  ]
+}
